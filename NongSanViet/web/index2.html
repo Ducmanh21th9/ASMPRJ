@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nông Sản Việt</title>
+    
+    <!-- CSS TRỰC TIẾP TRONG FILE - KHÔNG CẦN FILE CSS RIÊNG -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #2c5f2d;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-brand h1 {
+            color: #ffd93d;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd93d;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1566385101046-9a2984b1b3a2?w=1600');
+            background-size: cover;
+            background-position: center;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            color: white;
+        }
+
+        .hero-badge {
+            background: #ffd93d;
+            color: #2c5f2d;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .btn-primary {
+            background: #ffd93d;
+            color: #2c5f2d;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-badge {
+            background: #e8f5e9;
+            color: #2c5f2d;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #2c5f2d;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .category-item {
+            background: #faf7f2;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(44, 95, 45, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .category-icon i {
+            font-size: 2rem;
+            color: #2c5f2d;
+        }
+
+        .category-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Products */
+        .featured-products {
+            padding: 5rem 2rem;
+            background: #faf7f2;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff4444;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .product-image {
+            height: 200px;
+            background: #2c5f2d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #2c5f2d;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            background: #e8f5e9;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: #2c5f2d;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .product-link {
+            color: #2c5f2d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: #2c5f2d;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a3b1a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer h4 {
+            color: #ffd93d;
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            color: #b0b0b0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2c5f2d;
+            padding-top: 2rem;
+            text-align: center;
+            color: #b0b0b0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .category-grid,
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Nông Sản Việt</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#">TRANG CHỦ</a></li>
+                <li><a href="#">SẢN PHẨM</a></li>
+                <li><a href="#">VÙNG MIỀN</a></li>
+                <li><a href="#">CÂU CHUYỆN</a></li>
+                <li><a href="#">LIÊN HỆ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">100% TỰ NHIÊN & SẠCH</span>
+            <h1 class="hero-title">Tinh Hoa <br>Đất Việt</h1>
+            <p class="hero-description">
+                Mang hương vị thuần khiết từ những cánh đồng trù phú của Việt Nam 
+                đến tận bàn ăn gia đình bạn.
+            </p>
+            <div>
+                <a href="#" class="btn btn-primary">KHÁM PHÁ NGAY</a>
+                <a href="#" class="btn btn-secondary">TÌM HIỂU THÊM</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">DANH MỤC</span>
+                <h2>Sản phẩm của chúng tôi</h2>
+            </div>
+            <div class="category-grid">
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>Trái Cây</h3>
+                    <p>Trái cây tươi ngon từ khắp mọi miền</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-carrot"></i>
+                    </div>
+                    <h3>Rau Củ</h3>
+                    <p>Rau củ sạch theo mùa</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Lương Thực</h3>
+                    <p>Gạo và ngũ cốc chất lượng cao</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <h3>Đồ Uống</h3>
+                    <p>Trà, cà phê đặc sản vùng miền</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">SẢN PHẨM</span>
+                <h2>Sản phẩm nổi bật</h2>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <span class="product-tag">MỚI VỀ</span>
+                    <div class="product-image">
+                        <i class="fas fa-apple-alt fa-4x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">TRÁI CÂY</span>
+                        <h3 class="product-name">Xoài Cát Hòa Lộc</h3>
+                        <p class="product-description">Đặc sản Tiền Giang</p>
+                        <div class="product-price">85,000 ₫</div>
+                        <a href="#" class="product-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-tag">MỚI VỀ</span>
+                    <div class="product-image">
+                        <i class="fas fa-mug-hot fa-4x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">ĐỒ UỐNG</span>
+                        <h3 class="product-name">Cà Phê Buôn Ma Thuột</h3>
+                        <p class="product-description">Robusta chất lượng cao</p>
+                        <div class="product-price">120,000 ₫</div>
+                        <a href="#" class="product-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-seedling fa-4x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">LƯƠNG THỰC</span>
+                        <h3 class="product-name">Gạo ST25</h3>
+                        <p class="product-description">Gạo ngon nhất thế giới</p>
+                        <div class="product-price">45,000 ₫</div>
+                        <a href="#" class="product-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-leaf fa-4x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">ĐỒ UỐNG</span>
+                        <h3 class="product-name">Trà Xanh Thái Nguyên</h3>
+                        <p class="product-description">Đặc sản Thái Nguyên</p>
+                        <div class="product-price">150,000 ₫</div>
+                        <a href="#" class="product-link">Xem chi tiết →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Nhận tin tức & Ưu đãi</h2>
+            <p>Đăng ký để nhận thông tin mới nhất</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Email của bạn">
+                <button type="submit" class="btn btn-primary">Đăng ký</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4><i class="fas fa-leaf"></i> Nông Sản Việt</h4>
+                    <p>Mang hương vị Việt đến mọi nhà</p>
+                </div>
+                <div>
+                    <h4>Liên hệ</h4>
+                    <p>123 Đường Lê Lợi, Quận 1, TP.HCM</p>
+                    <p>+84 123 456 789</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 NÔNG SẢN VIỆT. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
